@@ -13,8 +13,15 @@ import { NotImplementedError } from '../extensions/index.js';
  */
 export default function getSeason(date) {
   if (date === undefined) return 'Unable to determine the time of year!';
-  if (!date instanceof Date || date.hasOwnProperty('getMonth') || Object.getOwnPropertyNames(date).length > 0) throw new Error('Invalid date!');
- 
+
+  try {
+    let number = Number(date);
+    let month = date.getMonth();
+  } 
+  catch(event) {
+    if (event) throw new Error('Invalid date!');
+  }
+  
   const month = date.getMonth();
 
   switch(month) {
@@ -38,5 +45,7 @@ export default function getSeason(date) {
     case 10:
       return 'fall';
   }
+
+
   
 }
